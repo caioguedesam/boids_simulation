@@ -1,5 +1,6 @@
 #pragma once
 #include <GL/freeglut.h>
+#include <iostream>
 #include "../include/mathlib.h"
 
 class vec2 {
@@ -22,6 +23,7 @@ public:
 
 	float magnitude();
 	vec2 normalize();
+	float sqrDist(const vec2& rhs);
 
 	vec2 rotate(float angle);
 };
@@ -47,6 +49,7 @@ public:
 
 	float magnitude();
 	vec3 normalize();
+	float sqrDist(const vec3& rhs);
 };
 
 class vec4 {
@@ -71,4 +74,7 @@ public:
 
 	float magnitude();
 	vec4 normalize();
+	float sqrDist(const vec4& rhs);
 };
+
+void debugLog(const vec3& vector, const char* message = "");

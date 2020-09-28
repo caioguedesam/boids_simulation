@@ -16,7 +16,12 @@ float vec2::magnitude() {
 
 vec2 vec2::normalize() {
 	float magnitude = this->magnitude();
+	if(magnitude == 0) return (*this);
 	return vec2(x / magnitude, y / magnitude);
+}
+
+float vec2::sqrDist(const vec2& rhs) {
+	return pow(this->x - rhs.x, 2) + pow(this->y - rhs.y, 2);
 }
 
 // rotates counter-clockwise
@@ -95,7 +100,12 @@ float vec3::magnitude() {
 
 vec3 vec3::normalize() {
 	float magnitude = this->magnitude();
+	if(magnitude == 0) return (*this);
 	return vec3(x / magnitude, y / magnitude, z / magnitude);
+}
+
+float vec3::sqrDist(const vec3& rhs) {
+	return pow(this->x - rhs.x, 2) + pow(this->y - rhs.y, 2) + pow(this->z - rhs.z, 2);
 }
 
 vec3 vec3::operator+(const vec3& rhs) {
@@ -170,7 +180,12 @@ float vec4::magnitude() {
 
 vec4 vec4::normalize() {
 	float magnitude = this->magnitude();
+	if(magnitude == 0) return (*this);
 	return vec4(x / magnitude, y / magnitude, z / magnitude, w / magnitude);
+}
+
+float vec4::sqrDist(const vec4& rhs) {
+	return pow(this->x - rhs.x, 2) + pow(this->y - rhs.y, 2) + pow(this->z - rhs.z, 2) + pow(this->w - rhs.w, 2);
 }
 
 vec4 vec4::operator+(const vec4& rhs) {
@@ -226,4 +241,8 @@ vec4 vec4::operator/=(const vec4& rhs) {
 	this->z /= rhs.z;
 	this->w /= rhs.w;
 	return *this;
+}
+
+void debugLog(const vec3& vector, const char* message) {
+	std::cout << message << vector.x << ", " << vector.y << ", " << vector.z << std::endl;
 }

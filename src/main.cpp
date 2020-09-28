@@ -3,7 +3,7 @@
 
 vec2 windowSize = vec2(1280, 720);
 
-Simulation simulation = Simulation(1);
+Simulation simulation = Simulation(100);
 
 void init() {
     glClearColor(0.0, 0.0, 0.0, 0.0);

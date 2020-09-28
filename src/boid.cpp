@@ -5,11 +5,6 @@ Boid::Boid() {
     this->moveDirection = vec3(0, 0, 0);
     this->moveSpeed = 0;
     this->color = vec4();
-
-    //this->behaviors = std::vector<Behavior*>();
-    /*this->behaviors.push_back(Cohesion(1));
-    this->behaviors.push_back(Alignment(2));
-    this->behaviors.push_back(Separation(3));*/
 }
 
 Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed) {
@@ -21,6 +16,7 @@ Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed) {
 
 vec3 Boid::getPosition() { return position; }
 vec3 Boid::getMoveDirection() { return moveDirection; }
+void Boid::setMoveDirection(const vec3& dir) { moveDirection = dir; }
 
 void Boid::update() {
     move();
@@ -45,7 +41,5 @@ void Boid::move() {
 }
 
 void Boid::printStats() {
-    /*std::cout << "Coh w: " << behaviors[0].weight << std::endl;
-    std::cout << "Ali w: " << behaviors[1].weight << std::endl;
-    std::cout << "Sep w: " << behaviors[2].weight << std::endl;*/
+    debugLog(moveDirection.normalize(), "MOVING WITH DIR: ");
 }

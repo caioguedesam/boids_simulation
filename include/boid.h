@@ -10,8 +10,6 @@ private:
     vec3 moveDirection;
     float moveSpeed;
 
-    //std::vector<Behavior*> behaviors;
-
     vec4 color;
 
 public:
@@ -20,6 +18,7 @@ public:
 
     vec3 getPosition();
     vec3 getMoveDirection();
+    void setMoveDirection(const vec3& dir);
 
     void update();
     void draw();
