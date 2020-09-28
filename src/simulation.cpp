@@ -4,11 +4,10 @@ Simulation::Simulation() {}
 
 Simulation::Simulation(const int& boidCount) {
     radius = 100;
-    closeRadius = 10;
+    closeRadius = 30;
 
     boidList = std::vector<Boid*>();
     for(int i = 0; i < boidCount; i++) {
-        //vec3 pos = vec3(0 + i * 10,0 + i * 10,0);
         vec3 pos = getRandomBoidPos();
         vec3 moveDir = vec3(0,1,0);
         float moveSpeed = 50.0;
@@ -17,7 +16,7 @@ Simulation::Simulation(const int& boidCount) {
 
     behaviorList = std::vector<Behavior*>();
     behaviorList.push_back(new Cohesion(9, radius));
-    behaviorList.push_back(new Alignment(8, radius));
+    behaviorList.push_back(new Alignment(4, radius));
     behaviorList.push_back(new Separation(12, closeRadius));
 }
 

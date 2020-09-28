@@ -23,5 +23,7 @@ vec3 Cohesion::calculateMoveDirection(Boid& boid, const std::vector<Boid*> &cont
     }
 
     result = (result - boidPos);
+    // Maybe change this smoothing later
+    result = vec3Lerp(boid.getMoveDirection(), result, 0.1);
     return result.normalize();
 }

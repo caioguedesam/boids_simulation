@@ -243,6 +243,10 @@ vec4 vec4::operator/=(const vec4& rhs) {
 	return *this;
 }
 
+vec3 vec3Lerp(const vec3& start, const vec3& end, const float& t) {
+	return vec3(lerp(start.x, end.x, t), lerp(start.y, end.y, t), lerp(start.z, end.z, t));
+}
+
 void debugLog(const vec3& vector, const char* message) {
 	std::cout << message << vector.x << ", " << vector.y << ", " << vector.z << std::endl;
 }

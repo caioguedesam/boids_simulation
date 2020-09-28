@@ -77,4 +77,6 @@ public:
 	float sqrDist(const vec4& rhs);
 };
 
+vec3 vec3Lerp(const vec3& start, const vec3& end, const float& t);
+
 void debugLog(const vec3& vector, const char* message = "");
