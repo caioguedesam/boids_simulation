@@ -11,3 +11,5 @@ float clamp(const float &value, const float &min, const float &max);
 
 float lerp(const float& start, const float& end, const float& t);
 float easeOutExpo(const float& start, const float& end, const float& t);
+
+float rad2deg(const float& rad);

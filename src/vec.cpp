@@ -108,6 +108,12 @@ float vec3::sqrDist(const vec3& rhs) {
 	return pow(this->x - rhs.x, 2) + pow(this->y - rhs.y, 2) + pow(this->z - rhs.z, 2);
 }
 
+float vec3::angle(vec3& rhs) {
+	vec3 a = this->normalize();
+	vec3 b = rhs.normalize();
+	return rad2deg(acos(dot(a,b)));
+}
+
 vec3 vec3::operator+(const vec3& rhs) {
 	vec3 result = vec3(this->x + rhs.x, this->y + rhs.y, this->z + rhs.z);
 	return result;
@@ -245,6 +251,15 @@ vec4 vec4::operator/=(const vec4& rhs) {
 
 vec3 vec3Lerp(const vec3& start, const vec3& end, const float& t) {
 	return vec3(lerp(start.x, end.x, t), lerp(start.y, end.y, t), lerp(start.z, end.z, t));
+}
+
+vec3 cross(const vec3& a, const vec3& b) {
+	return vec3(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x);
+}
+
+float dot(vec3& a, vec3& b) {
+	vec3 result = a * b;
+	return result.x + result.y + result.z;
 }
 
 void debugLog(const vec3& vector, const char* message) {

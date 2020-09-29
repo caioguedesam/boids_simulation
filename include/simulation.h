@@ -22,4 +22,5 @@ public:
     void calculateAllBoidDirections();
     void drawBehaviorLine(vec3 dir, vec4 color, Boid& boid);
     vec3 getRandomBoidPos();
+    vec3 getRandomBoidMoveDir();
 };

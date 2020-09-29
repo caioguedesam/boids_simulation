@@ -8,7 +8,11 @@ class Boid {
 private:
     vec3 position;
     vec3 moveDirection;
+    vec3 lastMoveDirection;
     float moveSpeed;
+    float maxRotationAngle;
+    vec2 size;
+    float tipSize;
 
     vec4 color;
 
@@ -20,9 +24,15 @@ public:
     vec3 getMoveDirection();
     void setMoveDirection(const vec3& dir);
 
+    //GLfloat* getVertices();
+    //GLfloat* getColors();
+
     void update();
     void draw();
+    void drawTriangle(int a, int b, int c);
+    void drawMoveDir();
 
     void move();
+    void faceMoveDirection();
     void printStats();
 };
