@@ -16,6 +16,10 @@ float vec3::magnitude() {
 	return sqrtf(pow(x, 2) + pow(y, 2) + pow(z, 2));
 }
 
+float vec3::magnitude2() {
+	return pow(x, 2) + pow(y, 2) + pow(z, 2);
+}
+
 vec3 vec3::normalize() {
 	float magnitude = this->magnitude();
 	if(magnitude == 0) return (*this);
@@ -32,12 +36,12 @@ float vec3::angle(vec3& rhs) {
 	return rad2deg(acos(dot(a,b)));
 }
 
-vec3 vec3::rotate(quat& q) {
+/*vec3 vec3::rotate(quat& q) {
 	quat pure = quat(this->x, this->y, this->z, 0);
 	quat qConj = q.conjugate();
 	quat result = (q * pure) * qConj;
 	return vec3(result.x, result.y, result.z);
-}
+}*/
 
 vec3 vec3::operator+(const vec3& rhs) {
 	vec3 result = vec3(this->x + rhs.x, this->y + rhs.y, this->z + rhs.z);
@@ -94,6 +98,10 @@ vec3 vec3::operator/=(const vec3& rhs) {
 	this->y /= rhs.y;
 	this->z /= rhs.z;
 	return *this;
+}
+
+bool vec3::operator==(const vec3& rhs) {
+	return (x == rhs.x) && (y == rhs.y) && (z == rhs.z);
 }
 
 vec3 vec3Lerp(const vec3& start, const vec3& end, const float& t) {

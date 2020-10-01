@@ -3,6 +3,8 @@
 Simulation::Simulation() {}
 
 Simulation::Simulation(const int& boidCount) {
+    debugDraw = false;
+
     radius = 100;
     closeRadius = 30;
 
@@ -59,7 +61,7 @@ void Simulation::calculateAllBoidDirections() {
             }
         }
 
-        (*it_boid)->setMoveDirection(vec3Lerp((*it_boid)->getMoveDirection(), moveDirection, 10 * deltaTime));
+        (*it_boid)->setMoveDirection(vec3Lerp((*it_boid)->getMoveDirection(), moveDirection, 5 * deltaTime));
     }
 }
 

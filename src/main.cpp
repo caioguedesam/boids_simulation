@@ -3,7 +3,7 @@
 
 vec2 windowSize = vec2(1280, 720);
 float spin = 0;
-Simulation simulation = Simulation(100);
+Simulation simulation = Simulation(200);
 
 /*void drawTriangle(vec3 a, vec3 b, vec3 c) {
     glVertex3f(a.x, a.y, a.z);
@@ -105,7 +105,7 @@ void drawShape2(float x, float y, float z) {
 void setCamera() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(3,9,3,0,0,-4.5,0,1,0);
+    gluLookAt(0,100,-300,0,0,0,0,1,0);
 }
 
 void init() {
@@ -116,18 +116,16 @@ void init() {
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
-
     simulation.draw();
-    //drawShape2(0, 0, -4.5);
-    //drawShape2(50, 0, -100.5);
-	glutSwapBuffers();
+    glutSwapBuffers();
 }
 
 void reshape(int w, int h) {
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-windowSize.x/2, windowSize.x/2, -windowSize.y/2, windowSize.y/2, -1000.0, 1000.0);
+	//glOrtho(-windowSize.x/2, windowSize.x/2, -windowSize.y/2, windowSize.y/2, -1000.0, 1000.0);
+    gluPerspective(70, windowSize.x/windowSize.y, 0, 1000);
 	setCamera();
 }
 

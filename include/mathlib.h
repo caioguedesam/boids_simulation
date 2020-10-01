@@ -13,3 +13,4 @@ float lerp(const float& start, const float& end, const float& t);
 float easeOutExpo(const float& start, const float& end, const float& t);
 
 float rad2deg(const float& rad);
+float deg2rad(const float& deg);

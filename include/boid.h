@@ -3,6 +3,7 @@
 #include <vector>
 #include "../include/vec.h"
 #include "../include/deltatime.h"
+#include "../include/quaternion.h"
 
 class Boid {
 private:
@@ -13,6 +14,7 @@ private:
     vec3 lastMoveDirection;
     float moveSpeed;
     float maxRotationAngle;
+    quat lastRot;
 
     float spin = 0;
 
@@ -38,5 +40,4 @@ public:
 
     void move();
     void faceMoveDirection();
-    void printStats();
 };

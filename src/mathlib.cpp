@@ -38,3 +38,7 @@ float easeOutExpo(const float& start, const float& end, const float& t) {
 float rad2deg(const float& rad) {
 	return rad * (180.0/PI);
 }
+
+float deg2rad(const float& deg) {
+	return deg * (PI/180.0);
+}

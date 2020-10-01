@@ -12,6 +12,7 @@ private:
     float radius;
     float closeRadius;
 public:
+    bool debugDraw;
     Simulation();
     Simulation(const int& boidCount);
     ~Simulation();

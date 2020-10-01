@@ -1,5 +1,7 @@
 #include "../include/boid.h"
 
+float lastAngle = 0;
+
 Boid::Boid() {
     this->position = vec3(0, 0, 0);
     this->moveDirection = vec3(0, 0, 0);
@@ -12,9 +14,10 @@ Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed, unsigned int id) 
     this->id = id;
     this->position = position;
     this->moveDirection = moveDirection;
-    this->lastMoveDirection = vec3();
+    this->lastMoveDirection = vec3(0,0,1);
     this->moveSpeed = moveSpeed;
     this->maxRotationAngle = 5;
+    this->lastRot = quat::identity();
     this->color = vec4(1,1,1,1);
 
     this->size = vec2(10, 10);
@@ -54,7 +57,6 @@ void Boid::draw() {
 
     glTranslatef(position.x, position.y, position.z);
     faceMoveDirection();
-    //glutSolidCube(10);
 
     glColor3f(color.x, color.y, color.z);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -77,17 +79,32 @@ void Boid::move() {
     position += moveDirection.normalize() * moveSpeed * deltaTime;
 }
 
-// TODO: FIX THIS to calculate rotation properly
 void Boid::faceMoveDirection() {
-    float angle = lastMoveDirection.angle(moveDirection);
-    vec3 axis = cross(lastMoveDirection.normalize(), moveDirection.normalize());
-    if(abs(angle) >= 1) {
-        angle = clamp(angle, -maxRotationAngle, maxRotationAngle);
-        glRotatef(angle, axis.x, axis.y, axis.z);
+    vec3 forward = vec3(0,0,1);
+    vec3 newForward = moveDirection.normalize();
+    // Prevent errors in very small rotations (?)
+    if((newForward-forward).magnitude2() < 0.05) {
+        return;
     }
+
+    float angle = rad2deg(acos(dot(forward, newForward)));
+    vec3 axis = cross(forward, newForward).normalize();
+
+    glRotatef(angle, axis.x, axis.y, axis.z);
 }
 
-void Boid::printStats() {
-    //std::cout << "Boid " << id;
-    //debugLog(position, ", position: ");
-}
+// TODO: FIX THIS to calculate rotation properly with quaternions
+/*void Boid::faceMoveDirection() {
+    // Get rotation quaternion towards move direction (ERROR HERE)
+    quat rot;
+    rot = quat::rotationBetweenVectors(lastMoveDirection, moveDirection);
+    /*quat rot = quat::angleAxis(deg2rad(lastAngle), vec3(1, 0, 0));
+
+    // previous rotations
+    rot = rot * lastRot;
+    // apply quaternion rotations with rotation matrix multiplication
+    std::vector<float> rotMatrix = rot.rotationMatrix();
+    glMultMatrixf(&rotMatrix[0]);
+    // store rotations
+    lastRot = rot;
+}*/
