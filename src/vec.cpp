@@ -1,4 +1,4 @@
-#include "../include/vec.h"
+/*#include "../include/vec.h"
 
 vec2::vec2() {
 	this->x = 0.0;
@@ -137,6 +137,11 @@ vec3 vec3::operator*(const float& rhs) {
 	return vec3(this->x * rhs, this->y * rhs, this->z * rhs);
 }
 
+/*quat vec3::operator*(const quat& rhs) {
+	quat pure = quat(this->x, this->y, this->z, 0);
+	return pure * rhs;
+}
+
 vec3 vec3::operator+=(const vec3 &rhs) {
 	this->x += rhs.x;
 	this->y += rhs.y;
@@ -264,4 +269,4 @@ float dot(vec3& a, vec3& b) {
 
 void debugLog(const vec3& vector, const char* message) {
 	std::cout << message << vector.x << ", " << vector.y << ", " << vector.z << std::endl;
-}
+}*/

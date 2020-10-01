@@ -1,5 +1,11 @@
 #pragma once
-#include <GL/freeglut.h>
+
+#include "../include/vec2.h"
+#include "../include/vec3.h"
+#include "../include/vec4.h"
+
+
+/*#include <GL/freeglut.h>
 #include <iostream>
 #include "../include/mathlib.h"
 
@@ -41,6 +47,7 @@ public:
 	vec3 operator-();
 	vec3 operator*(const vec3& rhs);
 	vec3 operator*(const float& rhs);
+	//quat operator*(const quat& rhs);
 	vec3 operator+=(const vec3& rhs);
 	vec3 operator/(const float& rhs);
 	vec3 operator/=(const float& rhs);
@@ -82,4 +89,4 @@ vec3 vec3Lerp(const vec3& start, const vec3& end, const float& t);
 vec3 cross(const vec3& a, const vec3& b);
 float dot(vec3& a, vec3& b);
 
-void debugLog(const vec3& vector, const char* message = "");
+void debugLog(const vec3& vector, const char* message = "");*/
