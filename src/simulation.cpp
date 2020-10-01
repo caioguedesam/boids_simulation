@@ -11,7 +11,7 @@ Simulation::Simulation(const int& boidCount) {
         vec3 pos = getRandomBoidPos();
         vec3 moveDir = getRandomBoidMoveDir();
         float moveSpeed = 50.0;
-        this->boidList.push_back(new Boid(pos, moveDir, moveSpeed));
+        this->boidList.push_back(new Boid(pos, moveDir, moveSpeed, i));
     }
 
     behaviorList = std::vector<Behavior*>();
@@ -76,5 +76,5 @@ vec3 Simulation::getRandomBoidMoveDir() {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distr(-500, 500);
 
-    return vec3(distr(gen), distr(gen), 0).normalize();
+    return vec3(distr(gen), distr(gen), distr(gen)).normalize();
 }

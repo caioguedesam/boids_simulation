@@ -6,30 +6,34 @@
 
 class Boid {
 private:
+    unsigned int id;
+    
     vec3 position;
     vec3 moveDirection;
     vec3 lastMoveDirection;
     float moveSpeed;
     float maxRotationAngle;
+
+    float spin = 0;
+
+    // Model information (will be changed later when using proper obj files)
     vec2 size;
     float tipSize;
+    std::vector<float> vertices;
+    std::vector<int> triangles;
 
     vec4 color;
 
 public:
     Boid();
-    Boid(vec3 position, vec3 moveDirection, float moveSpeed);
+    Boid(vec3 position, vec3 moveDirection, float moveSpeed, unsigned int id = 0);
 
     vec3 getPosition();
     vec3 getMoveDirection();
     void setMoveDirection(const vec3& dir);
 
-    //GLfloat* getVertices();
-    //GLfloat* getColors();
-
     void update();
     void draw();
-    void drawTriangle(int a, int b, int c);
     void drawMoveDir();
 
     void move();

@@ -8,7 +8,8 @@ Boid::Boid() {
     this->color = vec4();
 }
 
-Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed) {
+Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed, unsigned int id) {
+    this->id = id;
     this->position = position;
     this->moveDirection = moveDirection;
     this->lastMoveDirection = vec3();
@@ -18,6 +19,22 @@ Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed) {
 
     this->size = vec2(10, 10);
     this->tipSize = 30;
+
+    this->vertices = {
+        -size.x, -size.y, 0,    //0
+        size.x, -size.y, 0,     //1
+        size.x, size.y, 0,      //2
+        -size.x, size.y, 0,     //3
+        0, 0, tipSize           //4
+    };
+    this->triangles = {
+        0, 1, 2,
+        0, 3, 2,
+        0, 1, 4,
+        1, 2, 4,
+        2, 3, 4,
+        3, 0, 4
+    };
 }
 
 vec3 Boid::getPosition() { return position; }
@@ -27,79 +44,32 @@ void Boid::setMoveDirection(const vec3& dir) {
     moveDirection = dir;
 }
 
-/*GLfloat* Boid::getVertices() {
-    /*GLfloat vertices[] = {
-        position.x + size.x, position.y + size.y, 0,
-        position.x - size.x, position.y + size.y, 0,
-        position.x + size.x, position.y - size.y, 0,
-        position.x - size.x, position.y - size.y, 0,
-        position.x, position.y, tipSize
-    };
-    GLfloat vertices[] = {
-        size.x, size.y, 0,
-        -size.x, size.y, 0,
-        size.x, -size.y, 0,
-        -size.x, -size.y, 0,
-        0, 0, tipSize
-    };
-    return vertices;
-}
-
-GLfloat* Boid::getColors() {
-    GLfloat colors[] = {
-        1,1,1,
-        1,1,1,
-        1,1,1,
-        1,1,1,
-        1,1,1
-    };
-    return colors;
-}*/
-
 void Boid::update() {
     move();
     printStats();
 }
 
 void Boid::draw() {
-    glColor3f(color.x, color.y, color.z);
     glPushMatrix();
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
     glTranslatef(position.x, position.y, position.z);
-    //glRotatef(45, 1, 1, 0);
     faceMoveDirection();
-    // Currently, boid is solid cube;
-    glutSolidCube(10);
+    //glutSolidCube(10);
 
-    /*GLfloat vertices[] = {
-        size.x, size.y, 0,
-        -size.x, size.y, 0,
-        size.x, -size.y, 0,
-        -size.x, -size.y, 0,
-        0, 0, tipSize
-    };
-
+    glColor3f(color.x, color.y, color.z);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, vertices);
+    glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
+    glDrawElements(GL_TRIANGLES, triangles.size(), GL_UNSIGNED_INT, &triangles[0]);
 
-    glBegin(GL_QUADS);
-    glArrayElement(0);
-    glArrayElement(1);
-    glArrayElement(3);
-    glArrayElement(2);
-    glEnd();*/
     glPopMatrix();
 }
 
 void Boid::drawMoveDir() {
-    glColor3f(1,0,0);
+    glColor3f(1,0,1);
     glBegin(GL_LINES);
     glVertex3f(position.x, position.y, position.z);
     vec3 norm = moveDirection.normalize();
-    //glVertex3f(position.x + norm.x * 30, position.y + norm.y * 30, position.z + norm.z * 30);
-    glVertex3f(position.x + norm.x * 30, position.y + norm.y * 30, position.z);
+    glVertex3f(position.x + norm.x * 30, position.y + norm.y * 30, position.z + norm.z * 30);
     glEnd();
 }
 
@@ -107,6 +77,7 @@ void Boid::move() {
     position += moveDirection.normalize() * moveSpeed * deltaTime;
 }
 
+// TODO: FIX THIS to calculate rotation properly
 void Boid::faceMoveDirection() {
     float angle = lastMoveDirection.angle(moveDirection);
     vec3 axis = cross(lastMoveDirection.normalize(), moveDirection.normalize());
@@ -117,11 +88,6 @@ void Boid::faceMoveDirection() {
 }
 
 void Boid::printStats() {
-    //debugLog(moveDirection.normalize(), "MOVING WITH DIR: ");
-}
-
-void Boid::drawTriangle(int a, int b, int c) {
-    glArrayElement(a);
-    glArrayElement(b);
-    glArrayElement(c);
+    //std::cout << "Boid " << id;
+    //debugLog(position, ", position: ");
 }
