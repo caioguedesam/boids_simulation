@@ -37,8 +37,6 @@ Simulation::~Simulation() {
         delete (*it);
         it = behaviorList.erase(it);
     }
-
-    delete centerBoid;
 }
 
 void Simulation::getInputDown(unsigned char key) {
