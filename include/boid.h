@@ -19,6 +19,7 @@ protected:
     float tipSize;
     std::vector<float> vertices;
     std::vector<int> triangles;
+    std::vector<float> vertexColors;
 
     vec4 color;
 

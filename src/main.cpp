@@ -17,7 +17,7 @@ void setCamera() {
 
 void init() {
     glClearColor(0.0, 0.0, 0.0, 0.0);
-	glShadeModel(GL_FLAT);
+	glShadeModel(GL_SMOOTH);
     setCamera();
 }
 

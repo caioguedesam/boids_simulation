@@ -34,6 +34,13 @@ Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed, unsigned int id) 
         2, 3, 4,
         3, 0, 4
     };
+    this->vertexColors = {
+        0.5, 0.5, 0.5,
+        0.5, 0.5, 0.5,
+        0.5, 0.5, 0.5,
+        0.5, 0.5, 0.5,
+        1.0, 1.0, 1.0
+    };
 }
 
 vec3 Boid::getPosition() { return position; }
@@ -53,9 +60,11 @@ void Boid::draw() {
     glTranslatef(position.x, position.y, position.z);
     faceMoveDirection();
 
-    glColor3f(color.x, color.y, color.z);
+    //glColor3f(color.x, color.y, color.z);
     glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
+    glColorPointer(3, GL_FLOAT, 0, &vertexColors[0]);
     glDrawElements(GL_TRIANGLES, triangles.size(), GL_UNSIGNED_INT, &triangles[0]);
 
     glPopMatrix();
