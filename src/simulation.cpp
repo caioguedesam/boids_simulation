@@ -12,6 +12,7 @@ Simulation::Simulation(const int& boidCount) {
     centerBoidInput = MoveInput();
 
     boidList = std::vector<Boid*>();
+    boidList.push_back(centerBoid);
     for(int i = 0; i < boidCount; i++) {
         vec3 pos = getRandomBoidPos();
         vec3 moveDir = getRandomBoidMoveDir();
@@ -23,6 +24,7 @@ Simulation::Simulation(const int& boidCount) {
     behaviorList.push_back(new Cohesion(9, radius));
     behaviorList.push_back(new Alignment(4, radius));
     behaviorList.push_back(new Separation(12, closeRadius));
+    behaviorList.push_back(new Follow(6, centerBoid));
 }
 
 Simulation::~Simulation() {
@@ -40,76 +42,23 @@ Simulation::~Simulation() {
 }
 
 void Simulation::getInputDown(unsigned char key) {
-    if(key == 'w' && !centerBoidInput.upHold) {
-        centerBoidInput.upHold = true;
-        centerBoidInput.input.y = 1;
-    }
-    else if(key == 's' && !centerBoidInput.downHold) {
-        centerBoidInput.downHold = true;
-        centerBoidInput.input.y = -1;
-    }
-    else if(key == 'd' && !centerBoidInput.rightHold) {
-        centerBoidInput.rightHold = true;
-        centerBoidInput.input.x = 1;
-    }
-    else if(key == 'a' && !centerBoidInput.leftHold) {
-        centerBoidInput.leftHold = true;
-        centerBoidInput.input.x = -1;
-    }
-    else if(key == 'l' && !centerBoidInput.turnRightHold) {
-        centerBoidInput.turnRightHold = true;
-        centerBoidInput.input.z = 1;
-    }
-    else if(key == 'j' && !centerBoidInput.turnLeftHold) {
-        centerBoidInput.turnLeftHold = true;
-        centerBoidInput.input.z = -1;
-    }
+    centerBoidInput.getInputDown(key);
 }
 
 void Simulation::getInputUp(unsigned char key) {
-    if(key == 'w' && centerBoidInput.upHold) {
-        centerBoidInput.upHold = false;
-        centerBoidInput.input.y = 0;
-    }
-    else if(key == 's' && centerBoidInput.downHold) {
-        centerBoidInput.downHold = false;
-        centerBoidInput.input.y = 0;
-    }
-    else if(key == 'd' && centerBoidInput.rightHold) {
-        centerBoidInput.rightHold = false;
-        centerBoidInput.input.x = 0;
-    }
-    else if(key == 'a' && centerBoidInput.leftHold) {
-        centerBoidInput.leftHold = false;
-        centerBoidInput.input.x = 0;
-    }
-    else if(key == 'l' && centerBoidInput.turnRightHold) {
-        centerBoidInput.turnRightHold = false;
-        centerBoidInput.input.z = 0;
-    }
-    else if(key == 'j' && centerBoidInput.turnLeftHold) {
-        centerBoidInput.turnLeftHold = false;
-        centerBoidInput.input.z = 0;
-    }
+    centerBoidInput.getInputUp(key);
 }
 
 void Simulation::update() {
     centerBoid->getInput(centerBoidInput);
     calculateAllBoidDirections();
 
-    centerBoid->update();
     for(std::vector<Boid*>::iterator it = boidList.begin(); it != boidList.end(); it++) {
         (*it)->update();
     }
-
-    //centerBoid->print();
 }
 
 void Simulation::draw() {
-    centerBoid->draw();
-    centerBoid->drawMoveDir();
-    centerBoid->drawRightVector();
-    centerBoid->drawUpVector();
     for(std::vector<Boid*>::iterator it = boidList.begin(); it != boidList.end(); it++) {
         (*it)->draw();
         (*it)->drawMoveDir();
@@ -117,7 +66,8 @@ void Simulation::draw() {
 }
 
 void Simulation::calculateAllBoidDirections() {
-    for(auto it_boid = boidList.begin(); it_boid != boidList.end(); it_boid++) {
+    // Calculates for all but first list element, which is center boid
+    for(auto it_boid = boidList.begin() + 1; it_boid != boidList.end(); it_boid++) {
         vec3 moveDirection = vec3();
 
         for(auto it_bhv = behaviorList.begin(); it_bhv != behaviorList.end(); it_bhv++) {

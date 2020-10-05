@@ -7,4 +7,7 @@ public:
     bool upHold, downHold, leftHold, rightHold;
     bool turnLeftHold, turnRightHold;
     MoveInput();
+
+    void getInputDown(unsigned char key);
+    void getInputUp(unsigned char key);
 };

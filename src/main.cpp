@@ -11,7 +11,7 @@ void setCamera() {
     glLoadIdentity();
     gluLookAt(0,100,-300,0,0,0,0,1,0);
     /*vec3 lookPos = simulation.getCenterBoidPos();
-    vec3 eye = lookPos + simulation.getCenterBoidDir() * 70;
+    vec3 eye = lookPos + simulation.getCenterBoidDir() * 200;
     gluLookAt(eye.x, eye.y, eye.z, lookPos.x, lookPos.y, lookPos.z, 0, 1, 0);*/
 }
 
