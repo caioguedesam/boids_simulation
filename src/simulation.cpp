@@ -59,7 +59,7 @@ void Simulation::update() {
 void Simulation::draw() {
     for(std::vector<Boid*>::iterator it = boidList.begin(); it != boidList.end(); it++) {
         (*it)->draw();
-        (*it)->drawMoveDir();
+        //(*it)->drawMoveDir();
     }
 }
 

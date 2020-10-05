@@ -22,7 +22,7 @@ void init() {
 }
 
 void display() {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     simulation.draw();
     glutSwapBuffers();
     // Testing camera follow
@@ -55,7 +55,8 @@ void idle() {
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
 
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
+    glEnable(GL_DEPTH_TEST);
     glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - windowSize.x)/2, (glutGet(GLUT_SCREEN_HEIGHT) - windowSize.y)/2);
 	glutCreateWindow("Boids");
 	glutSetCursor(GLUT_CURSOR_NONE);
