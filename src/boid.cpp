@@ -1,7 +1,5 @@
 #include "../include/boid.h"
 
-float lastAngle = 0;
-
 Boid::Boid() {
     this->position = vec3(0, 0, 0);
     this->moveDirection = vec3(0, 0, 0);
@@ -16,8 +14,6 @@ Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed, unsigned int id) 
     this->moveDirection = moveDirection;
     this->lastMoveDirection = vec3(0,0,1);
     this->moveSpeed = moveSpeed;
-    this->maxRotationAngle = 5;
-    this->lastRot = quat::identity();
     this->color = vec4(1,1,1,1);
 
     this->size = vec2(10, 10);
@@ -49,7 +45,6 @@ void Boid::setMoveDirection(const vec3& dir) {
 
 void Boid::update() {
     move();
-    printStats();
 }
 
 void Boid::draw() {

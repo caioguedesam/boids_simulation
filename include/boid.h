@@ -6,17 +6,13 @@
 #include "../include/quaternion.h"
 
 class Boid {
-private:
+protected:
     unsigned int id;
     
     vec3 position;
     vec3 moveDirection;
     vec3 lastMoveDirection;
     float moveSpeed;
-    float maxRotationAngle;
-    quat lastRot;
-
-    float spin = 0;
 
     // Model information (will be changed later when using proper obj files)
     vec2 size;

@@ -104,6 +104,16 @@ bool vec3::operator==(const vec3& rhs) {
 	return (x == rhs.x) && (y == rhs.y) && (z == rhs.z);
 }
 
+vec3 vec3::rotate(std::vector<float> matrix) {
+	// Using a 4x4 opengl style matrix
+	vec3 result = vec3(
+		matrix[0]*x + matrix[1]*y + matrix[2]*z,
+		matrix[4]*x + matrix[5]*y + matrix[6]*z,
+		matrix[8]*x + matrix[9]*y + matrix[10]*z
+	);
+	return result;
+}
+
 vec3 vec3Lerp(const vec3& start, const vec3& end, const float& t) {
 	return vec3(lerp(start.x, end.x, t), lerp(start.y, end.y, t), lerp(start.z, end.z, t));
 }
@@ -115,6 +125,19 @@ vec3 cross(const vec3& a, const vec3& b) {
 float dot(vec3& a, vec3& b) {
 	vec3 result = a * b;
 	return result.x + result.y + result.z;
+}
+
+std::vector<float> rotationMatrix(float angle, vec3 vec) {
+	vec3 v = vec.normalize();
+	float cosT = cos(angle);
+	float sinT = sin(angle);
+	std::vector<float> result = {
+		cosT + (1-cosT)*v.x*v.x, v.x*v.y*(1-cosT) - v.z*sinT, v.x*v.z*(1-cosT) + v.y*sinT, 0,
+		v.x*v.y*(1-cosT) + v.z*sinT, cosT + (1-cosT)*v.y*v.y, v.y*v.z*(1-cosT) - v.x*sinT, 0,
+		v.x*v.z*(1-cosT) - v.y*sinT, v.y*v.z*(1-cosT) + v.x*sinT, cosT + (1-cosT)*v.z*v.z, 0,
+		0, 0, 0, 1
+	};
+	return result;
 }
 
 void debugLog(const vec3& vector, const char* message) {
