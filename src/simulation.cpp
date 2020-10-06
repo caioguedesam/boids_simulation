@@ -8,6 +8,10 @@ Simulation::Simulation(const int& boidCount) {
     radius = 100;
     closeRadius = 30;
 
+    std::vector<float> vertices, uvs, normals;
+    loadOBJ("assets/models/boidmodel.obj", vertices, uvs, normals);
+    boidModel = new Model(vertices, uvs, normals);
+
     centerBoid = new CenterBoid(vec3(0,0,0), vec3(0,0,1), 50, vec4(0,1,0,1), 0);
     centerBoidInput = MoveInput();
 
@@ -37,6 +41,8 @@ Simulation::~Simulation() {
         delete (*it);
         it = behaviorList.erase(it);
     }
+
+    delete boidModel;
 }
 
 void Simulation::getInputDown(unsigned char key) {

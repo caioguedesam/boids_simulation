@@ -35,10 +35,10 @@ Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed, unsigned int id) 
         3, 0, 4
     };
     this->vertexColors = {
-        0.5, 0.5, 0.5,
-        0.5, 0.5, 0.5,
-        0.5, 0.5, 0.5,
-        0.5, 0.5, 0.5,
+        0.9, 0.9, 0.9,
+        0.9, 0.9, 0.9,
+        0.9, 0.9, 0.9,
+        0.9, 0.9, 0.9,
         1.0, 1.0, 1.0
     };
 }

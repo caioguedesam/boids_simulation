@@ -3,11 +3,14 @@
 #include "../include/center_boid.h"
 #include "../include/move_input.h"
 #include "../include/boid_behaviors.h"
+#include "../include/model.h"
 #include <random>
 #include <vector>
 
 class Simulation {
 private:
+    Model* boidModel;
+
     CenterBoid* centerBoid;
     std::vector<Boid*> boidList;
     std::vector<Behavior*> behaviorList;

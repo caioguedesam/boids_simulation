@@ -1,5 +1,6 @@
 #include <GL/freeglut.h>
 #include "../include/simulation.h"
+#include "../include/obj_loader.h"
 
 vec2 windowSize = vec2(1280, 720);
 float spin = 0;
@@ -60,6 +61,10 @@ int main(int argc, char** argv) {
     glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - windowSize.x)/2, (glutGet(GLUT_SCREEN_HEIGHT) - windowSize.y)/2);
 	glutCreateWindow("Boids");
 	glutSetCursor(GLUT_CURSOR_NONE);
+
+    std::vector<float> tempVertices, tempUVs, tempNormals;
+
+    loadOBJ("assets/models/boidmodel.obj", tempVertices, tempUVs, tempNormals);
 
     init();
     glutDisplayFunc(display);
