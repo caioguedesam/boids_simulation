@@ -1,8 +1,8 @@
 #include "../include/center_boid.h"
 
-CenterBoid::CenterBoid(vec3 position, vec3 moveDirection, float moveSpeed, vec4 color, unsigned int id)
-    : Boid(position, moveDirection, moveSpeed, id) {
-    this->color = color;
+CenterBoid::CenterBoid(vec3 position, vec3 moveDirection, float moveSpeed, Model* model, unsigned int id)
+    : Boid(position, moveDirection, moveSpeed, model, id) {
+    this->color = vec4(0,1,0,1);
     this->angularSpeed = 200.0f;
 }
 

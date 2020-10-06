@@ -8,7 +8,7 @@ Boid::Boid() {
     this->color = vec4();
 }
 
-Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed, unsigned int id) {
+Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed, Model* model, unsigned int id) {
     this->id = id;
     this->position = position;
     this->moveDirection = moveDirection;
@@ -16,31 +16,7 @@ Boid::Boid(vec3 position, vec3 moveDirection, float moveSpeed, unsigned int id) 
     this->moveSpeed = moveSpeed;
     this->color = vec4(1,1,1,1);
 
-    this->size = vec2(10, 10);
-    this->tipSize = 30;
-
-    this->vertices = {
-        -size.x, -size.y, 0,    //0
-        size.x, -size.y, 0,     //1
-        size.x, size.y, 0,      //2
-        -size.x, size.y, 0,     //3
-        0, 0, tipSize           //4
-    };
-    this->triangles = {
-        0, 1, 2,
-        0, 3, 2,
-        0, 1, 4,
-        1, 2, 4,
-        2, 3, 4,
-        3, 0, 4
-    };
-    this->vertexColors = {
-        0.9, 0.9, 0.9,
-        0.9, 0.9, 0.9,
-        0.9, 0.9, 0.9,
-        0.9, 0.9, 0.9,
-        1.0, 1.0, 1.0
-    };
+    this->model = model;
 }
 
 vec3 Boid::getPosition() { return position; }
@@ -60,13 +36,12 @@ void Boid::draw() {
     glTranslatef(position.x, position.y, position.z);
     faceMoveDirection();
 
-    //glColor3f(color.x, color.y, color.z);
+    glColor3f(color.x, color.y, color.z);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
-    glColorPointer(3, GL_FLOAT, 0, &vertexColors[0]);
-    glDrawElements(GL_TRIANGLES, triangles.size(), GL_UNSIGNED_INT, &triangles[0]);
-
+    glEnableClientState(GL_NORMAL_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, &model->vertices[0]);
+    glNormalPointer(GL_FLOAT, 0, &model->normals[0]);
+    glDrawArrays(GL_TRIANGLES, 0, model->vertices.size()/3);
     glPopMatrix();
 }
 

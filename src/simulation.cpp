@@ -12,7 +12,7 @@ Simulation::Simulation(const int& boidCount) {
     loadOBJ("assets/models/boidmodel.obj", vertices, uvs, normals);
     boidModel = new Model(vertices, uvs, normals);
 
-    centerBoid = new CenterBoid(vec3(0,0,0), vec3(0,0,1), 50, vec4(0,1,0,1), 0);
+    centerBoid = new CenterBoid(vec3(0,0,0), vec3(0,0,1), 50, boidModel, 0);
     centerBoidInput = MoveInput();
 
     boidList = std::vector<Boid*>();
@@ -21,7 +21,7 @@ Simulation::Simulation(const int& boidCount) {
         vec3 pos = getRandomBoidPos();
         vec3 moveDir = getRandomBoidMoveDir();
         float moveSpeed = 50.0;
-        this->boidList.push_back(new Boid(pos, moveDir, moveSpeed, i+1));
+        this->boidList.push_back(new Boid(pos, moveDir, moveSpeed, boidModel, i+1));
     }
 
     behaviorList = std::vector<Behavior*>();
