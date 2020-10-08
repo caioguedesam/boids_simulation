@@ -22,6 +22,7 @@ public:
     void setSideState();
 
     vec3 getBoidAvgPos();
+    vec3 getBoidAvgDir();
 
     void changeState(char input);
 };
