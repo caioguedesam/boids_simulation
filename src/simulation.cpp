@@ -35,7 +35,7 @@ Simulation::Simulation(const int& boidCount) {
     behaviorList.push_back(new Separation(24, closeRadius));
     behaviorList.push_back(new Follow(6, centerBoid));
 
-    camera = Camera(CameraState::TOWER, &boidList, tower);
+    camera = Camera(CameraState::BEHIND, &boidList, tower);
 }
 
 Simulation::~Simulation() {
@@ -55,6 +55,7 @@ Simulation::~Simulation() {
 }
 
 void Simulation::getInputDown(unsigned char key) {
+    camera.changeState(key);
     centerBoidInput.getInputDown(key);
 }
 

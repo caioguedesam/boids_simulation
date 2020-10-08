@@ -9,7 +9,7 @@ Camera::Camera(CameraState state, std::vector<Boid*>* boids, Tower* tower) {
 }
 
 void Camera::setCamera() {
-    /*switch(state) {
+    switch(state) {
         case CameraState::TOWER:
             setTowerState();
             break;
@@ -21,8 +21,7 @@ void Camera::setCamera() {
             break;
         default:
             break;
-    }*/
-    setSideState();
+    }
 }
 
 void Camera::setTowerState() {

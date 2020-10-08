@@ -12,8 +12,6 @@ bool loadOBJ(const char* path,
     std::string line;
     std::ifstream file(path);
     if(file.is_open()) {
-        std::cout << "Loading .obj" << std::endl;
-
         // Parse each line from file
         while(std::getline(file, line)) {
             std::vector<std::string> contents = splitStringOnce(line, ' ');
