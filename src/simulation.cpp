@@ -173,7 +173,8 @@ void Simulation::removeBoid() {
     if(boidList.size() > 1) {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<> distr(1, boidList.size());
+        // Get random index from 1 (first non center boid) to last boid index
+        std::uniform_int_distribution<> distr(1, boidList.size() - 1);
         int randomIndex = distr(gen);
         auto it = boidList.begin() + randomIndex;
 
