@@ -3,7 +3,6 @@
 #include "../include/obj_loader.h"
 
 vec2 windowSize = vec2(1280, 720);
-float spin = 0;
 Simulation simulation = Simulation(100);
 
 void setLight() {
@@ -25,15 +24,9 @@ void setLight() {
     glPopMatrix();
 }
 
-// Change this later to support different cam modes. Maybe camera class?
 void setCamera() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
-    //gluLookAt(0,100,-300,0,0,0,0,1,0);
-    /*vec3 lookPos = simulation.getCenterBoidPos();
-    vec3 eye = lookPos - simulation.getCenterBoidDir() * 200;
-    gluLookAt(eye.x, eye.y, eye.z, lookPos.x, lookPos.y, lookPos.z, 0, 1, 0);*/
     simulation.setCamera();
     setLight();
 }
@@ -43,7 +36,6 @@ void init() {
     glDepthFunc(GL_LESS);
     glClearColor(0.0, 0.0, 0.0, 0.0);
 	glShadeModel(GL_SMOOTH);
-    //setLight();
     setCamera();
 }
 
@@ -58,7 +50,6 @@ void reshape(int w, int h) {
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//glOrtho(-windowSize.x/2, windowSize.x/2, -windowSize.y/2, windowSize.y/2, -1000.0, 1000.0);
     gluPerspective(70, windowSize.x/windowSize.y, 50, 5000);
 	setCamera();
 }
