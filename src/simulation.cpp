@@ -6,7 +6,7 @@ Simulation::Simulation(const int& boidCount) {
     debugDraw = false;
 
     radius = 100;
-    closeRadius = 30;
+    closeRadius = 50;
 
     std::vector<float> vertices, uvs, normals;
     loadOBJ("assets/models/boidmodel.obj", vertices, uvs, normals);
@@ -27,7 +27,7 @@ Simulation::Simulation(const int& boidCount) {
     behaviorList = std::vector<Behavior*>();
     behaviorList.push_back(new Cohesion(9, radius));
     behaviorList.push_back(new Alignment(4, radius));
-    behaviorList.push_back(new Separation(12, closeRadius));
+    behaviorList.push_back(new Separation(24, closeRadius));
     behaviorList.push_back(new Follow(6, centerBoid));
 }
 

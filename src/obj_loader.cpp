@@ -12,6 +12,8 @@ bool loadOBJ(const char* path,
     std::string line;
     std::ifstream file(path);
     if(file.is_open()) {
+        std::cout << "Loading .obj" << std::endl;
+
         // Parse each line from file
         while(std::getline(file, line)) {
             std::vector<std::string> contents = splitStringOnce(line, ' ');
@@ -63,7 +65,7 @@ bool loadOBJ(const char* path,
             // -1 because .obj indexation starts from 1 instead of 0
             vec3 vertex = tempVertices[vertexIndex - 1];
             vec2 uv = tempUVs[uvIndex - 1];
-            vec3 normal = tempNormals[normalIndex - 1];
+            vec3 normal = tempNormals[normalIndex - 1].normalize();
 
             outVertices.push_back(vertex.x);
             outVertices.push_back(vertex.y);

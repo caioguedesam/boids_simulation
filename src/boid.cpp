@@ -36,7 +36,7 @@ void Boid::draw() {
     glTranslatef(position.x, position.y, position.z);
     faceMoveDirection();
 
-    glColor3f(color.x, color.y, color.z);
+    //glColor3f(color.x, color.y, color.z);
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_NORMAL_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, &model->vertices[0]);
