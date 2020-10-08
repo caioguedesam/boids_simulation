@@ -62,6 +62,10 @@ void inputUp(unsigned char key, int x, int y) {
     simulation.getInputUp(key);
 }
 
+void mouseClick(int button, int buttonState, int x, int y) {
+    simulation.getMouseInput(button, buttonState);
+}
+
 void idle() {
     updateDeltaTime();
     simulation.update();
@@ -81,6 +85,7 @@ int main(int argc, char** argv) {
     glutReshapeFunc(reshape);
     glutKeyboardFunc(inputDown);
     glutKeyboardUpFunc(inputUp);
+    glutMouseFunc(mouseClick);
     glutIdleFunc(idle);
 
     glutMainLoop();

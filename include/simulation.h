@@ -10,8 +10,14 @@
 #include <random>
 #include <vector>
 
+enum class SimulationState { PAUSED, PLAYING };
+
 class Simulation {
 private:
+    SimulationState state;
+    bool pauseButtonDown;
+    bool pauseAfterUpdate;
+
     Model* boidModel;
     Camera camera;
 
@@ -27,17 +33,21 @@ private:
     float radius;
     float closeRadius;
 public:
-    bool debugDraw;
     Simulation();
     Simulation(const int& boidCount);
     ~Simulation();
 
     void getInputDown(unsigned char key);
     void getInputUp(unsigned char key);
+    void getMouseInput(int button, int buttonState);
 
     void update();
     void draw();
     void setCamera();
+
+    void play();
+    void pause();
+    void displayStats();
 
     void addBoid();
     void removeBoid();

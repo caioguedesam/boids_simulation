@@ -3,7 +3,9 @@
 Simulation::Simulation() {}
 
 Simulation::Simulation(const int& boidCount) {
-    debugDraw = false;
+    state = SimulationState::PLAYING;
+    pauseButtonDown = false;
+    pauseAfterUpdate = false;
 
     radius = 100;
     closeRadius = 50;
@@ -72,12 +74,43 @@ void Simulation::getInputUp(unsigned char key) {
     centerBoidInput.getInputUp(key);
 }
 
-void Simulation::update() {
-    centerBoid->getInput(centerBoidInput);
-    calculateAllBoidDirections();
+void Simulation::getMouseInput(int button, int buttonState) {
+    switch(button) {
+        case GLUT_LEFT_BUTTON:
+            if(buttonState == GLUT_DOWN) {
+                if(state == SimulationState::PAUSED)
+                    play();
+                else
+                    pause();
+                pauseAfterUpdate = false;
+            }
+            break;
+        case GLUT_RIGHT_BUTTON:
+            if(buttonState == GLUT_DOWN) {
+                if(state == SimulationState::PAUSED)
+                    play();
+                else
+                    pause();
+                pauseAfterUpdate = true;
+                displayStats();
+            }
+            break;
+        default:
+            break;
+    }
+}
 
-    for(std::vector<Boid*>::iterator it = boidList.begin(); it != boidList.end(); it++) {
-        (*it)->update();
+void Simulation::update() {
+    if(state == SimulationState::PLAYING) {
+        centerBoid->getInput(centerBoidInput);
+        calculateAllBoidDirections();
+
+        for(std::vector<Boid*>::iterator it = boidList.begin(); it != boidList.end(); it++) {
+            (*it)->update();
+        }
+
+        if(pauseAfterUpdate)
+            pause();
     }
 }
 
@@ -92,6 +125,27 @@ void Simulation::draw() {
 
 void Simulation::setCamera() {
     camera.setCamera();
+}
+
+void Simulation::play() {
+    state = SimulationState::PLAYING;
+}
+
+void Simulation::pause() {
+    state = SimulationState::PAUSED;
+}
+
+void Simulation::displayStats() {
+    std::cout << "Boid simulation stats on time: " << elapsedTime << std::endl;
+    std::cout << "Center boid:" << std::endl;
+    debugLog(getCenterBoidPos(), "      Position: ");
+    debugLog(getCenterBoidDir(), "      Move Direction: ");
+    std::cout << "Other boids:" << std::endl;
+    for(auto it = boidList.begin(); it != boidList.end(); it++) {
+        std::cout << "  Boid #" << it - boidList.begin() << std::endl;
+        debugLog((*it)->getPosition(), "        Position: ");
+        debugLog((*it)->getMoveDirection(), "       Move Direction: ");
+    }
 }
 
 void Simulation::calculateAllBoidDirections() {
