@@ -9,7 +9,7 @@ Ground::Ground(vec3 position, vec2 size) {
 
 void Ground::setMaterial() {
     float matAmbDiff[] = {0.1, 0.1, 0.1, 1.0};
-    float matSpecular[] = { 0.2, 0.2, 0.2, 1.0 };
+    float matSpecular[] = { 0.1, 0.1, 0.1, 1.0 };
     float lowShininess[] = { 5.0 };
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matSpecular);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, lowShininess);

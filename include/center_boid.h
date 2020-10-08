@@ -12,6 +12,7 @@ public:
     vec3 rotateMoveDirection(quat rotationQuat);
     void print();
 
+    void setMaterial() override;
     void drawRightVector();
     void drawUpVector();
 };

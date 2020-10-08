@@ -5,6 +5,7 @@
 #include "../include/boid_behaviors.h"
 #include "../include/model.h"
 #include "../include/ground.h"
+#include "../include/tower.h"
 #include <random>
 #include <vector>
 
@@ -13,6 +14,7 @@ private:
     Model* boidModel;
 
     Ground* ground;
+    Tower* tower;
 
     CenterBoid* centerBoid;
     std::vector<Boid*> boidList;

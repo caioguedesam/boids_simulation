@@ -8,7 +8,7 @@ Simulation simulation = Simulation(100);
 
 void setLight() {
     glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    glPushMatrix();
 
     float lightAmbient[] = {0.15, 0.15, 0.15, 1.0};
     float lightDiffuse[] = {1.0, 1.0, 1.0, 1.0};
@@ -22,6 +22,7 @@ void setLight() {
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
+    glPopMatrix();
 }
 
 // Change this later to support different cam modes. Maybe camera class?
@@ -33,6 +34,7 @@ void setCamera() {
     vec3 lookPos = simulation.getCenterBoidPos();
     vec3 eye = lookPos - simulation.getCenterBoidDir() * 200;
     gluLookAt(eye.x, eye.y, eye.z, lookPos.x, lookPos.y, lookPos.z, 0, 1, 0);
+    setLight();
 }
 
 void setMaterial() {
@@ -49,7 +51,7 @@ void init() {
     glDepthFunc(GL_LESS);
     glClearColor(0.0, 0.0, 0.0, 0.0);
 	glShadeModel(GL_SMOOTH);
-    setLight();
+    //setLight();
     setCamera();
     //setMaterial();
 }
@@ -66,7 +68,7 @@ void reshape(int w, int h) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	//glOrtho(-windowSize.x/2, windowSize.x/2, -windowSize.y/2, windowSize.y/2, -1000.0, 1000.0);
-    gluPerspective(70, windowSize.x/windowSize.y, 50, 1000);
+    gluPerspective(70, windowSize.x/windowSize.y, 50, 5000);
 	setCamera();
 }
 

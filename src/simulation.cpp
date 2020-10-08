@@ -12,7 +12,8 @@ Simulation::Simulation(const int& boidCount) {
     loadOBJ("assets/models/boidmodel.obj", vertices, uvs, normals);
     boidModel = new Model(vertices, uvs, normals);
 
-    ground = new Ground(vec3(0,-500,0), vec2(5000, 5000));
+    ground = new Ground(vec3(2500,-500,2500), vec2(5000, 5000));
+    tower = new Tower(vec3(2500, -500, 2500), vec3(500, 700, 0));
 
     centerBoid = new CenterBoid(vec3(0,0,0), vec3(0,0,1), 50, boidModel, 0);
     centerBoidInput = MoveInput();
@@ -46,6 +47,7 @@ Simulation::~Simulation() {
 
     delete boidModel;
     delete ground;
+    delete tower;
 }
 
 void Simulation::getInputDown(unsigned char key) {
@@ -67,6 +69,7 @@ void Simulation::update() {
 
 void Simulation::draw() {
     ground->draw();
+    tower->draw();
     for(std::vector<Boid*>::iterator it = boidList.begin(); it != boidList.end(); it++) {
         (*it)->draw();
         //(*it)->drawMoveDir();
@@ -107,7 +110,7 @@ vec3 Simulation::getRandomBoidPos() {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distr(-500, 500);
 
-    return vec3(distr(gen), distr(gen), 0);
+    return vec3(distr(gen), distr(gen), distr(gen));
 }
 
 vec3 Simulation::getRandomBoidMoveDir() {

@@ -38,6 +38,15 @@ void CenterBoid::print() {
     debugLog(moveDirection, "center boid move dir: ");
 }
 
+void CenterBoid::setMaterial() {
+    float matAmbDiff[] = {0.117, 0.341, 0.172, 1.0};
+    float matSpecular[] = { 0.109, 0.831, 0.109, 1.0 };
+    float lowShininess[] = { 5.0 };
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matSpecular);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, lowShininess);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, matAmbDiff);
+}
+
 void CenterBoid::drawRightVector() {
     vec3 forward = moveDirection.normalize();
     vec3 u = vec3(0,1,0);
