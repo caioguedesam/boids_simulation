@@ -4,12 +4,15 @@
 #include "../include/move_input.h"
 #include "../include/boid_behaviors.h"
 #include "../include/model.h"
+#include "../include/ground.h"
 #include <random>
 #include <vector>
 
 class Simulation {
 private:
     Model* boidModel;
+
+    Ground* ground;
 
     CenterBoid* centerBoid;
     std::vector<Boid*> boidList;

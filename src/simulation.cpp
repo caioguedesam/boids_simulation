@@ -12,6 +12,8 @@ Simulation::Simulation(const int& boidCount) {
     loadOBJ("assets/models/boidmodel.obj", vertices, uvs, normals);
     boidModel = new Model(vertices, uvs, normals);
 
+    ground = new Ground(vec3(0,-500,0), vec2(5000, 5000));
+
     centerBoid = new CenterBoid(vec3(0,0,0), vec3(0,0,1), 50, boidModel, 0);
     centerBoidInput = MoveInput();
 
@@ -43,6 +45,7 @@ Simulation::~Simulation() {
     }
 
     delete boidModel;
+    delete ground;
 }
 
 void Simulation::getInputDown(unsigned char key) {
@@ -63,6 +66,7 @@ void Simulation::update() {
 }
 
 void Simulation::draw() {
+    ground->draw();
     for(std::vector<Boid*>::iterator it = boidList.begin(); it != boidList.end(); it++) {
         (*it)->draw();
         //(*it)->drawMoveDir();

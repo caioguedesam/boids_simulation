@@ -30,13 +30,22 @@ void Boid::update() {
     move();
 }
 
+void Boid::setMaterial() {
+    float matAmbDiff[] = {0.1, 0.1, 0.25, 1.0};
+    float matSpecular[] = { 0.133, 0.133, 0.529, 1.0 };
+    float lowShininess[] = { 5.0 };
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matSpecular);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, lowShininess);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, matAmbDiff);
+}
+
 void Boid::draw() {
     glPushMatrix();
 
     glTranslatef(position.x, position.y, position.z);
     faceMoveDirection();
 
-    //glColor3f(color.x, color.y, color.z);
+    setMaterial();
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_NORMAL_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, &model->vertices[0]);

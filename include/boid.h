@@ -34,6 +34,7 @@ public:
     void setMoveDirection(const vec3& dir);
 
     void update();
+    void setMaterial();
     void draw();
     void drawMoveDir();
 

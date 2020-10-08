@@ -29,10 +29,10 @@ void setCamera() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    gluLookAt(0,100,-300,0,0,0,0,1,0);
-    /*vec3 lookPos = simulation.getCenterBoidPos();
-    vec3 eye = lookPos + simulation.getCenterBoidDir() * 200;
-    gluLookAt(eye.x, eye.y, eye.z, lookPos.x, lookPos.y, lookPos.z, 0, 1, 0);*/
+    //gluLookAt(0,100,-300,0,0,0,0,1,0);
+    vec3 lookPos = simulation.getCenterBoidPos();
+    vec3 eye = lookPos - simulation.getCenterBoidDir() * 200;
+    gluLookAt(eye.x, eye.y, eye.z, lookPos.x, lookPos.y, lookPos.z, 0, 1, 0);
 }
 
 void setMaterial() {
@@ -51,7 +51,7 @@ void init() {
 	glShadeModel(GL_SMOOTH);
     setLight();
     setCamera();
-    setMaterial();
+    //setMaterial();
 }
 
 void display() {
@@ -66,7 +66,7 @@ void reshape(int w, int h) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	//glOrtho(-windowSize.x/2, windowSize.x/2, -windowSize.y/2, windowSize.y/2, -1000.0, 1000.0);
-    gluPerspective(70, windowSize.x/windowSize.y, 1, 1000);
+    gluPerspective(70, windowSize.x/windowSize.y, 50, 1000);
 	setCamera();
 }
 
