@@ -39,10 +39,14 @@ public:
     void draw();
     void setCamera();
 
+    void addBoid();
+    void removeBoid();
     void calculateAllBoidDirections();
     void drawBehaviorLine(vec3 dir, vec4 color, Boid& boid);
     vec3 getRandomBoidPos();
     vec3 getRandomBoidMoveDir();
+    vec3 getRandomBoidPosNearCenter();
+    vec3 getAvgBoidPos();
     vec3 getCenterBoidPos();
     vec3 getCenterBoidDir();
 };

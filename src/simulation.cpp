@@ -55,6 +55,15 @@ Simulation::~Simulation() {
 }
 
 void Simulation::getInputDown(unsigned char key) {
+    if(key == '+') {
+        addBoid();
+        return;
+    }
+    else if(key == '-') {
+        removeBoid();
+        return;
+    }
+
     camera.changeState(key);
     centerBoidInput.getInputDown(key);
 }
@@ -114,12 +123,35 @@ vec3 Simulation::getCenterBoidDir() {
     return centerBoid->getMoveDirection();
 }
 
+vec3 Simulation::getAvgBoidPos() {
+    vec3 result = vec3(0,0,0);
+    int count = 0;
+    for(auto it = boidList.begin(); it != boidList.end(); it++) {
+        result += (*it)->getPosition();
+        count++;
+    }
+    if(count > 0)
+        result = result / count;
+    return result;
+}
+
 vec3 Simulation::getRandomBoidPos() {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distr(-500, 500);
 
     return vec3(distr(gen), distr(gen), distr(gen));
+}
+
+vec3 Simulation::getRandomBoidPosNearCenter() {
+    vec3 center = getAvgBoidPos();
+    float maxOffset = 200;
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distr(-maxOffset, maxOffset);
+
+    return vec3(center.x + distr(gen), center.y + distr(gen), center.z + distr(gen));
 }
 
 vec3 Simulation::getRandomBoidMoveDir() {
@@ -129,3 +161,24 @@ vec3 Simulation::getRandomBoidMoveDir() {
 
     return vec3(distr(gen), distr(gen), distr(gen)).normalize();
 }
+
+void Simulation::addBoid() {
+    vec3 pos = getRandomBoidPosNearCenter();
+    vec3 moveDir = getRandomBoidMoveDir();
+    float moveSpeed = 200.0;
+    this->boidList.push_back(new Boid(pos, moveDir, moveSpeed, boidModel));
+}
+
+void Simulation::removeBoid() {
+    if(boidList.size() > 1) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> distr(1, boidList.size());
+        int randomIndex = distr(gen);
+        auto it = boidList.begin() + randomIndex;
+
+        delete (*it);
+        boidList.erase(it);
+    }
+}
+
