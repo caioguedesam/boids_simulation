@@ -12,10 +12,12 @@ Simulation::Simulation(const int& boidCount) {
     loadOBJ("assets/models/boidmodel.obj", vertices, uvs, normals);
     boidModel = new Model(vertices, uvs, normals);
 
-    ground = new Ground(vec3(2500,-500,2500), vec2(5000, 5000));
-    tower = new Tower(vec3(2500, -500, 2500), vec3(500, 700, 0));
+    vec3 groundPos = vec3(1000, -500, 1000);
 
-    centerBoid = new CenterBoid(vec3(0,0,0), vec3(0,0,1), 50, boidModel, 0);
+    ground = new Ground(groundPos, vec2(5000, 5000));
+    tower = new Tower(groundPos, vec3(500, 700, 0));
+
+    centerBoid = new CenterBoid(vec3(0,0,0), vec3(0,0,1), 200, boidModel, 0);
     centerBoidInput = MoveInput();
 
     boidList = std::vector<Boid*>();
@@ -23,7 +25,7 @@ Simulation::Simulation(const int& boidCount) {
     for(int i = 0; i < boidCount; i++) {
         vec3 pos = getRandomBoidPos();
         vec3 moveDir = getRandomBoidMoveDir();
-        float moveSpeed = 50.0;
+        float moveSpeed = 200.0;
         this->boidList.push_back(new Boid(pos, moveDir, moveSpeed, boidModel, i+1));
     }
 
@@ -32,6 +34,8 @@ Simulation::Simulation(const int& boidCount) {
     behaviorList.push_back(new Alignment(4, radius));
     behaviorList.push_back(new Separation(24, closeRadius));
     behaviorList.push_back(new Follow(6, centerBoid));
+
+    camera = Camera(CameraState::TOWER, &boidList, tower);
 }
 
 Simulation::~Simulation() {
@@ -74,6 +78,10 @@ void Simulation::draw() {
         (*it)->draw();
         //(*it)->drawMoveDir();
     }
+}
+
+void Simulation::setCamera() {
+    camera.setCamera();
 }
 
 void Simulation::calculateAllBoidDirections() {

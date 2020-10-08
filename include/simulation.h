@@ -6,12 +6,14 @@
 #include "../include/model.h"
 #include "../include/ground.h"
 #include "../include/tower.h"
+#include "../include/camera.h"
 #include <random>
 #include <vector>
 
 class Simulation {
 private:
     Model* boidModel;
+    Camera camera;
 
     Ground* ground;
     Tower* tower;
@@ -35,6 +37,7 @@ public:
 
     void update();
     void draw();
+    void setCamera();
 
     void calculateAllBoidDirections();
     void drawBehaviorLine(vec3 dir, vec4 color, Boid& boid);

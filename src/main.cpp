@@ -31,19 +31,11 @@ void setCamera() {
     glLoadIdentity();
 
     //gluLookAt(0,100,-300,0,0,0,0,1,0);
-    vec3 lookPos = simulation.getCenterBoidPos();
+    /*vec3 lookPos = simulation.getCenterBoidPos();
     vec3 eye = lookPos - simulation.getCenterBoidDir() * 200;
-    gluLookAt(eye.x, eye.y, eye.z, lookPos.x, lookPos.y, lookPos.z, 0, 1, 0);
+    gluLookAt(eye.x, eye.y, eye.z, lookPos.x, lookPos.y, lookPos.z, 0, 1, 0);*/
+    simulation.setCamera();
     setLight();
-}
-
-void setMaterial() {
-    float matAmbDiff[] = {0.1, 0.1, 0.25, 1.0};
-    float matSpecular[] = { 0.133, 0.133, 0.529, 1.0 };
-    float lowShininess[] = { 5.0 };
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matSpecular);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, lowShininess);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, matAmbDiff);
 }
 
 void init() {
@@ -53,7 +45,6 @@ void init() {
 	glShadeModel(GL_SMOOTH);
     //setLight();
     setCamera();
-    //setMaterial();
 }
 
 void display() {
