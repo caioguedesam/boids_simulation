@@ -49,6 +49,8 @@ public:
     void pause();
     void displayStats();
 
+    bool isPaused();
+
     void addBoid();
     void removeBoid();
     void calculateAllBoidDirections();

@@ -148,6 +148,10 @@ void Simulation::displayStats() {
     }
 }
 
+bool Simulation::isPaused() {
+    return (state == SimulationState::PAUSED);
+}
+
 void Simulation::calculateAllBoidDirections() {
     // Calculates for all but first list element, which is center boid
     for(auto it_boid = boidList.begin() + 1; it_boid != boidList.end(); it_boid++) {

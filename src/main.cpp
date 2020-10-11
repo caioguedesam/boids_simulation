@@ -25,9 +25,11 @@ void setLight() {
 }
 
 void setCamera() {
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    simulation.setCamera();
+    if(!simulation.isPaused()) {
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        simulation.setCamera();
+    }
     setLight();
 }
 
