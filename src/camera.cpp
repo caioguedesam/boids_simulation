@@ -6,6 +6,12 @@ Camera::Camera(CameraState state, std::vector<Boid*>* boids, Tower* tower) {
     this->state = state;
     this->boids = boids;
     this->tower = tower;
+
+    this->lastPos = vec3();
+
+    towerSmooth = 1;
+    behindSmooth = 10;
+    sideSmooth = 5;
 }
 
 void Camera::setCamera() {
@@ -27,14 +33,24 @@ void Camera::setCamera() {
 void Camera::setTowerState() {
     vec3 eyePos = tower->position + vec3(0, 1000, 0);
     vec3 lookPos = getBoidAvgPos();
+
+    eyePos = vec3Lerp(lastPos, eyePos, deltaTime * towerSmooth);
     gluLookAt(eyePos.x, eyePos.y, eyePos.z, lookPos.x, lookPos.y, lookPos.z, 0, 1, 0);
+
+    lastPos = eyePos;
 }
 
 void Camera::setBehindState() {
-    vec3 offset = vec3(0, 0, -700);
+    float offset = -700;
     vec3 lookPos = getBoidAvgPos();
-    vec3 eyePos = lookPos + offset;
+
+    vec3 centerMoveDir = (*boids)[0]->getMoveDirection();
+    vec3 eyePos = lookPos + centerMoveDir * offset;
+
+    eyePos = vec3Lerp(lastPos, eyePos, deltaTime * behindSmooth);
     gluLookAt(eyePos.x, eyePos.y, eyePos.z, lookPos.x, lookPos.y, lookPos.z, 0, 1, 0);
+
+    lastPos = eyePos;
 }
 
 void Camera::setSideState() {
@@ -46,7 +62,11 @@ void Camera::setSideState() {
 
     vec3 lookPos = avgPos;
     vec3 eyePos = lookPos + moveDirCross * offset;
+
+    eyePos = vec3Lerp(lastPos, eyePos, deltaTime * sideSmooth);
     gluLookAt(eyePos.x, eyePos.y, eyePos.z, lookPos.x, lookPos.y, lookPos.z, 0, 1, 0);
+
+    lastPos = eyePos;
 }
 
 void Camera::changeState(char key) {

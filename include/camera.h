@@ -13,6 +13,10 @@ public:
     std::vector<Boid*>* boids;
     Tower* tower;
 
+    vec3 lastPos;
+
+    float towerSmooth, behindSmooth, sideSmooth;
+
     Camera();
     Camera(CameraState state, std::vector<Boid*>* boids, Tower* tower);
 
